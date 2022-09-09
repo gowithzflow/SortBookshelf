@@ -14,12 +14,29 @@
         return this.bookList;
     }
 
-
-    addFav(book) {
+    
+    countFav(book) {
+        //make arr of all favorites, for each book in favorites.... call countFav()
+        const favs = document.querySelectorAll(".fav");
+        
         this.favorites.push(book);
         return this.favorites;
     }
 
+    filter(){
+        const searchVal = document.querySelector("input");
+        const sButton = document.querySelector("#search-button");
+
+        // use reg fun syntax to use global this in func below
+       // compare the title to the search val 
+
+       sButton.addEventListener('click', function() {
+
+        bookList.filter((book) => 
+         book["title"].includes(searchVal.value));
+        list.replaceChildren(...books);
+        return list;});
+    }
 
 
     //remove book from the list (arr)
@@ -40,20 +57,15 @@
     render() {
         const shelf = document.querySelector("#shelf");
         const list = document.createElement("ul");
-        const searchVal = document.querySelector("input");
-        const sButton = document.querySelector("#search-button");
-        // const list = document.querySelector("ul");   
-        
-        // use reg fun syntax to use global this in func below
-       // compare the title to the search val 
+        const ctFav = document.querySelector("#ctFav");
 
-        sButton.addEventListener('click', function () {
-            const books = bookList.filter((book) => 
-             book["title"].includes(searchVal.value));
-            list.replaceChildren(...books);
-            return list;});
-        
-        const books = this.bookList.map((book) => book.render());
+        //map ea. book in list to render
+        const books = this.bookList.map((book) =>
+            book.render());
+
+        books.forEach((book) => this.favorites.includes(book)? this.countFav(book) : 0 );
+
+        ctFav.textContent = `${this.favorites.length}`;
 
         list.replaceChildren(...books);
 

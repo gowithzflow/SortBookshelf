@@ -15,9 +15,13 @@ class Book {
         const fav = document.createElement("button");
         fav.id = "#fav-button";
         fav.textContent = "+";
+
+        //gives favorite list item of each book a class name and changes indicator if favorited
         fav.addEventListener('click', function(){
-             fav.textContent = "*";
-            }); 
+            fav.textContent = "*";
+            li.className = "fav";
+            
+           });
 
         li.append(fav);
 
